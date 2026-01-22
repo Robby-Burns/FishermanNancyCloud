@@ -1,0 +1,58 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="Django" />
+          <option value="djangorestframework" />
+          <option value="django-cors-headers" />
+          <option value="psycopg" />
+          <option value="django-extensions" />
+          <option value="dj-database-url" />
+          <option value="pgvector" />
+          <option value="pydantic" />
+          <option value="pydantic-settings" />
+          <option value="python-dotenv" />
+          <option value="tenacity" />
+          <option value="asyncio-contextmanager" />
+          <option value="pytest" />
+          <option value="pytest-asyncio" />
+          <option value="pytest-cov" />
+          <option value="pytest-mock" />
+          <option value="pytest-django" />
+          <option value="daphne" />
+          <option value="asgiref" />
+          <option value="django-redis" />
+          <option value="redis" />
+          <option value="celery" />
+          <option value="kombu" />
+          <option value="python-json-logger" />
+          <option value="sentry-sdk" />
+          <option value="sentence-transformers" />
+          <option value="torch" />
+          <option value="scikit-learn" />
+          <option value="openai" />
+          <option value="google-generativeai" />
+          <option value="anthropic" />
+          <option value="black" />
+          <option value="flake8" />
+          <option value="mypy" />
+          <option value="isort" />
+          <option value="pylint" />
+          <option value="coverage" />
+          <option value="requests" />
+          <option value="python-dateutil" />
+          <option value="pytz" />
+          <option value="django" />
+          <option value="asyncpg" />
+          <option value="typing-extensions" />
+          <option value="uvicorn" />
+          <option value="loguru" />
+          <option value="pytest-env" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="SqlNoDataSourceInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+  </profile>
+</component>
