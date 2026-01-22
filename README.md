@@ -19,6 +19,7 @@ A complete AI-powered system for commercial fishermen to manage catches, check p
 - Docker and Docker Compose installed
 - An Anthropic API Key (for Claude)
 - A Gmail account (or other SMTP provider) for sending SMS
+- A Neon (Postgres) Database URL
 
 ### 2. Configuration
 
@@ -31,8 +32,8 @@ A complete AI-powered system for commercial fishermen to manage catches, check p
    - `ANTHROPIC_API_KEY`: Your Claude API key
    - `SMTP_USER`: Your Gmail address
    - `SMTP_PASSWORD`: Your Gmail App Password (not your login password)
-     - To get an App Password: Go to Google Account > Security > 2-Step Verification > App passwords
    - `SECRET_KEY`: Generate a random string for security
+   - `DATABASE_URL`: Your Neon connection string (e.g., `postgres://user:pass@ep-xyz.neon.tech/neondb?sslmode=require`)
 
 ### 3. Running the App
 
@@ -51,6 +52,25 @@ A complete AI-powered system for commercial fishermen to manage catches, check p
 2. Go to **Settings** and add a Cannery URL (e.g., for Westport).
 3. Go to **Buyer Management** and upload your buyer list using the Excel template.
    - You can download the template from the Settings page.
+
+## Deployment
+
+### Backend (Render/Railway)
+1. Push code to GitHub.
+2. Create a new Web Service on Render/Railway.
+3. Set Environment Variables:
+   - `ANTHROPIC_API_KEY`
+   - `SMTP_USER`
+   - `SMTP_PASSWORD`
+   - `SECRET_KEY`
+   - `DATABASE_URL` (Neon Postgres URL)
+4. Deploy.
+
+### Frontend (Vercel)
+1. Import GitHub repo to Vercel.
+2. Set Environment Variable:
+   - `NEXT_PUBLIC_API_URL`: The URL of your deployed backend (e.g., `https://fishcatch-backend.onrender.com`)
+3. Deploy.
 
 ## Usage Guide
 
@@ -74,15 +94,9 @@ The system includes a "Universal Coach" that checks every action:
 - **Privacy**: It never shares your full buyer list with anyone.
 - **Respect**: It warns you if you try to message the same buyer twice in one day.
 
-## Troubleshooting
-
-- **Messages not sending?** Check your SMTP settings in `.env`. Make sure you're using an App Password, not your regular email password.
-- **Prices not updating?** Check the Cannery URL in Settings. The website structure might have changed.
-- **Database locked?** Restart the Docker containers.
-
 ## Tech Stack
 
 - **Frontend**: Next.js 14, TailwindCSS, TypeScript
 - **Backend**: Python FastAPI, SQLAlchemy
-- **Database**: SQLite (encrypted)
+- **Database**: PostgreSQL (Neon) or SQLite (Local)
 - **AI**: Anthropic Claude (claude-sonnet-4-5-20250929)
