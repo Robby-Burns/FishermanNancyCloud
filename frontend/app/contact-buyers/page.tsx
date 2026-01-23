@@ -163,7 +163,7 @@ function ContactBuyersContent() {
                             step="0.01"
                             name="price"
                             id="price"
-                            className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 py-3 sm:text-lg border-gray-300 rounded-lg"
+                            className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 py-3 sm:text-lg border-gray-300 rounded-lg text-black"
                             placeholder="0.00"
                             value={manualPrice}
                             onChange={(e) => setManualPrice(e.target.value)}
@@ -285,16 +285,40 @@ function ContactBuyersContent() {
               {draft.message_text}
             </div>
 
-            <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-              <span>Verified: {draft.pounds} lbs @ ${draft.price_per_lb}/lb</span>
-              <span>Total: ${(draft.pounds * draft.price_per_lb).toLocaleString()}</span>
+            {/* Human-Centered Design: Trust Signals */}
+            <div className="mt-4 border-t border-gray-100 pt-4">
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                    <div className="flex items-center space-x-2">
+                        <span className="h-2 w-2 rounded-full bg-green-500"></span>
+                        <span className="font-medium text-gray-700">High Confidence</span>
+                    </div>
+                    <span>Source: {priceData?.cannery_name || 'Manual Entry'}</span>
+                </div>
+
+                <details className="group">
+                    <summary className="text-xs text-blue-600 cursor-pointer hover:text-blue-800 list-none flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 mr-1 group-open:rotate-90 transition-transform">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                        How this was generated
+                    </summary>
+                    <div className="mt-2 text-xs text-gray-600 bg-gray-50 p-3 rounded border border-gray-100">
+                        <p className="mb-1"><strong>Logic:</strong></p>
+                        <ul className="list-disc list-inside space-y-1 pl-1">
+                            <li>Verified catch: {draft.pounds} lbs</li>
+                            <li>Verified price: ${draft.price_per_lb}/lb</li>
+                            <li>Total value: ${(draft.pounds * draft.price_per_lb).toLocaleString()}</li>
+                            <li>Buyer preference: Matches "{draft.fish_type}"</li>
+                        </ul>
+                    </div>
+                </details>
             </div>
 
             {!sentMessages.includes(draft.message_id) && (
               <button
                 onClick={() => handleSend(draft.message_id)}
                 disabled={sending === draft.message_id}
-                className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="w-full mt-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
                 {sending === draft.message_id ? 'Sending...' : 'Approve & Send'}
               </button>

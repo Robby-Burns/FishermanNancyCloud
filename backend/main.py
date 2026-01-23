@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from datetime import datetime, timedelta
 import io
 
@@ -341,6 +341,10 @@ async def contact_buyers(
         Price.fish_type == catch.fish_type
     ).order_by(Price.scraped_at.desc()).first()
     
+    # If user provided a manual base price in the request, use it
+    # Note: We need to update the agent to accept this override
+    # For now, we rely on the database price which might have been manually set
+    
     # Get buyers who prefer this fish type
     all_buyers = db.query(Buyer).all()
     matching_buyers = [
@@ -352,6 +356,16 @@ async def contact_buyers(
     result = await agent.generate_buyer_messages(catch, price, matching_buyers, db)
     
     if result["blocked"]:
+        # Check if it's just a missing price
+        if result.get("missing_price"):
+             raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail={
+                    "message": "Price data missing",
+                    "missing_price": True
+                }
+            )
+
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail={

@@ -92,6 +92,7 @@ class MessageResponse(BaseModel):
 class ContactBuyersRequest(BaseModel):
     """Request to contact buyers about a catch"""
     catch_id: int
+    base_price: Optional[float] = None # Added base_price
 
 
 class ContactBuyersResponse(BaseModel):
