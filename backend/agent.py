@@ -2,9 +2,9 @@ import anthropic
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
 import re
-from config import settings
-from coach import UniversalCoach, AgentType
-from database import Catch, Buyer, Price, Message
+from backend.config import settings
+from backend.coach import UniversalCoach, AgentType
+from backend.database import Catch, Buyer, Price, Message
 from sqlalchemy.orm import Session
 
 
