@@ -2,7 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from typing import Dict
-from config import settings
+from backend.config import settings
 
 
 # Carrier email-to-SMS gateways
