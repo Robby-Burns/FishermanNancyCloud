@@ -7,19 +7,19 @@ from datetime import datetime, timedelta
 import io
 
 from backend.database import get_db, init_db, Catch, Buyer, Price, Message, Sale, Cannery, CoachingEvent
-from schemas import (
+from backend.schemas import (
     CatchCreate, CatchResponse, BuyerCreate, BuyerResponse, PriceResponse,
     ContactBuyersRequest, ContactBuyersResponse, MessageSend, MessageResponse,
     SaleCreate, SaleResponse, LoginRequest, LoginResponse, CanneryCreate,
     CanneryResponse, HealthResponse, CoachingEventResponse
 )
-from auth import authenticate, create_access_token, get_current_user
-from agent import FishingAgent
-from coach import UniversalCoach, AgentType
-from scraper import CanneryScraper
-from email_sms import EmailSMSGateway
-from excel_parser import ExcelParser
-from config import settings
+from backend.auth import authenticate, create_access_token, get_current_user
+from backend.agent import FishingAgent
+from backend.coach import UniversalCoach, AgentType
+from backend.scraper import CanneryScraper
+from backend.email_sms import EmailSMSGateway
+from backend.excel_parser import ExcelParser
+from backend.config import settings
 
 # Initialize FastAPI app
 app = FastAPI(title="FishCatch AI Agent API", version="1.0.0")
