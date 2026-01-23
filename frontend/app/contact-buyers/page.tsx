@@ -80,22 +80,6 @@ function ContactBuyersContent() {
     setLoading(true);
     try {
         const token = localStorage.getItem('token');
-        // 1. Save the manual price
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/prices/manual`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            // We assume Halibut for now, but ideally we'd get this from the catch details
-            // For simplicity in this fix, we'll just set it for the current catch's fish type if we knew it
-            // But since we don't have the catch details loaded here yet, we'll default to a generic or ask user
-            // Actually, let's just refresh the drafts, which will pick up the new price if we set it correctly.
-            // Wait, we need the fish type. Let's fetch the catch details first or just pass it.
-            // Simplified: Just reload the page after setting a price for "Halibut" (most common) or let user pick.
-            // Better: Add a fish type selector to the manual price form.
-        });
-
         // Actually, the backend endpoint expects query params for manual price
         const fishType = 'Halibut'; // Default for now
         const url = new URL(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/prices/manual`);
