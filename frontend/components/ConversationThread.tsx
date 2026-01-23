@@ -5,6 +5,7 @@ interface Message {
   message_text: string;
   sent_at: string;
   status: string;
+  buyer_id?: number;
   buyer?: {
     name: string;
   };
