@@ -6,7 +6,7 @@ from typing import List
 from datetime import datetime, timedelta
 import io
 
-from database import get_db, init_db, Catch, Buyer, Price, Message, Sale, Cannery, CoachingEvent
+from backend.database import get_db, init_db, Catch, Buyer, Price, Message, Sale, Cannery, CoachingEvent
 from schemas import (
     CatchCreate, CatchResponse, BuyerCreate, BuyerResponse, PriceResponse,
     ContactBuyersRequest, ContactBuyersResponse, MessageSend, MessageResponse,
