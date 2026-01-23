@@ -23,7 +23,7 @@ class FishingAgent:
     async def generate_buyer_messages(
         self,
         catch: Catch,
-        price: Price,
+        price: Optional[Price],
         buyers: List[Buyer],
         db: Session
     ) -> Dict[str, Any]:
@@ -34,27 +34,22 @@ class FishingAgent:
             {
                 "drafts": [MessageDraft],
                 "violations": [CoachingEvent],
-                "blocked": bool
+                "blocked": bool,
+                "missing_price": bool
             }
         """
         violations = []
         approved_drafts = []
 
-        # Validate price data exists
+        # If price is missing, we can't generate safe messages
+        # But instead of a hard block, we'll signal the frontend to ask for manual entry
         if not price:
-            violation = self._create_violation(
-                guardrail="hallucination_prevention",
-                severity="critical",
-                what_happened="Attempted to generate messages without verified price data",
-                expected="Current price from cannery scraping or manual entry"
-            )
-            coaching = self.coach.coach_agent(violation)
-            violations.append(coaching)
             return {
                 "drafts": [],
-                "violations": violations,
+                "violations": [],
                 "blocked": True,
-                "error": "No price data available. Please check cannery prices first."
+                "missing_price": True,
+                "error": "No price data available. Please enter a price manually."
             }
 
         # Check for duplicate messages in last 24 hours
@@ -107,7 +102,8 @@ class FishingAgent:
         return {
             "drafts": approved_drafts,
             "violations": violations,
-            "blocked": False
+            "blocked": False,
+            "missing_price": False
         }
 
     def _generate_message_text(self, catch: Catch, price: Price, buyer: Buyer) -> str:
