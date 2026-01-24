@@ -59,6 +59,11 @@ async def health_check():
         "agent": "ready"
     }
 
+# Root route for basic connectivity check
+@app.get("/")
+async def root():
+    return {"message": "FishermanNancyCloud API is running", "status": "healthy"}
+
 
 # Authentication
 @app.post("/api/v1/auth/login", response_model=LoginResponse)
